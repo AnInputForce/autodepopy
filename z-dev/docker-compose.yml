@@ -1,0 +1,26 @@
+version: '2'
+services:
+  db:
+    image: mariadb
+    expose:
+      - "3306"
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/custom:/etc/mysql/conf.d
+    environment:
+      - MYSQL_DATABASE=mydeploy
+      - MYSQL_ROOT_PASSWORD=1q2w  
+      - ON_CREATE_DB="mydeploy"
+      - COMPOSE_PROJECT_NAME=autodeploy
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  web:
+    build:  
+      context: . 
+    image: mydjango:latest
+    volumes:
+      - ~/workspace:/usr/local/web
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    command: python ./autodeploy/manage.py runserver 0.0.0.0:8000
