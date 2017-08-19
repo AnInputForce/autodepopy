@@ -1,7 +1,8 @@
 
 # Docker搭建Django+Mariadb环境
-
-
+docker-compose up
+http://localhost:8000/admin
+admin/admin0518
 ## 阅读建议
 
 先通读全文后，再自行决定需要实践的步骤。后文总是有更简洁更快更好的实践。
